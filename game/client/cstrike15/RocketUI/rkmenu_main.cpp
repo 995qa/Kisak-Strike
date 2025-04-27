@@ -24,7 +24,7 @@ class RkMainMenuButtons : public Rml::EventListener
         Rml::String id = elem->GetId();
         if( id == "pm_test" )
         {
-            engine->ClientCmd_Unrestricted("map de_dust2");
+            engine->ClientCmd("map de_dust2");
         }
 //        else if( id == "pm_choose" )
 //        {
