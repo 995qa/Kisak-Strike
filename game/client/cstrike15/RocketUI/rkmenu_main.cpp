@@ -4,6 +4,8 @@
 
 #include "rkpanel_options.h"
 
+#include "rkpanel_play.h"
+
 #include "cdll_client_int.h" // extern globals to interfaces like engineclient
 
 Rml::ElementDocument *RocketMainMenuDocument::m_pInstance = nullptr;
@@ -44,6 +46,7 @@ public:
         keyevent.StopPropagation();
     }
 };
+
 static MainMenuEventListener mainMenuEventListener;
 
 RocketMainMenuDocument::RocketMainMenuDocument()
@@ -67,6 +70,7 @@ void RocketMainMenuDocument::LoadDialog()
             /* Exit */
         }
         m_pInstance->GetElementById("options-menu-btn")->AddEventListener(Rml::EventId::Click, &mainMenuEventListener);
+        m_pInstance->GetElementById("playgame")->AddEventListener(Rml::EventId::Click, &mainMenuEventListener);
     }
 }
 
