@@ -26,7 +26,7 @@ class RkMainMenuButtons : public Rml::EventListener
         Rml::String id = elem->GetId();
         if( id == "pm_test" )
         {
-            engine->ClientCmd("map de_dust2");
+            RocketMatchmakeDocument::ShowPanel( false );
         }
 //        else if( id == "pm_choose" )
 //        {
@@ -47,7 +47,19 @@ public:
     }
 };
 
+class MainMenuEventListener2 : public Rml::EventListener
+{
+public:
+    void ProcessEvent(Rml::Event &keyevent) override
+    {
+        // Click event on options menu button.
+        RocketMatchmakeDocument::ShowPanel( true );
+        keyevent.StopPropagation();
+    }
+};
+
 static MainMenuEventListener mainMenuEventListener;
+static MainMenuEventListener2 mainMenuEventListener2;
 
 RocketMainMenuDocument::RocketMainMenuDocument()
 {
@@ -70,7 +82,7 @@ void RocketMainMenuDocument::LoadDialog()
             /* Exit */
         }
         m_pInstance->GetElementById("options-menu-btn")->AddEventListener(Rml::EventId::Click, &mainMenuEventListener);
-        m_pInstance->GetElementById("playgame")->AddEventListener(Rml::EventId::Click, &mainMenuEventListener);
+        m_pInstance->GetElementById("playgame")->AddEventListener(Rml::EventId::Click, &mainMenuEventListener2);
     }
 }
 
