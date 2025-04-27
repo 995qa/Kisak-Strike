@@ -4,23 +4,14 @@
 
 #include "rkpanel_options.h"
 
+#include "cdll_client_int.h" // extern globals to interfaces like engineclient
+
 Rml::ElementDocument *RocketMainMenuDocument::m_pInstance = nullptr;
 bool RocketMainMenuDocument::showing = false;
 bool RocketMainMenuDocument::grabbingInput = false;
 
-class MainMenuEventListener : public Rml::EventListener
-{
-public:
-    void ProcessEvent(Rml::Event &keyevent) override
-    {
-        // Click event on options menu button.
-        RocketOptionsDocument::ShowPanel( true );
-        keyevent.StopPropagation();
-    }
-};
-static MainMenuEventListener mainMenuEventListener;
 
-RocketMainMenuDocument::RocketMainMenuDocument()
+class RkMainMenuButtons : public Rml::EventListener
 {
     public:
     void ProcessEvent(Rml::Event& mousedownevent) override
@@ -41,6 +32,22 @@ RocketMainMenuDocument::RocketMainMenuDocument()
 //            RocketPauseMenuDocument::ShowPanel( false );
 //        }
     }
+};
+
+class MainMenuEventListener : public Rml::EventListener
+{
+public:
+    void ProcessEvent(Rml::Event &keyevent) override
+    {
+        // Click event on options menu button.
+        RocketOptionsDocument::ShowPanel( true );
+        keyevent.StopPropagation();
+    }
+};
+static MainMenuEventListener mainMenuEventListener;
+
+RocketMainMenuDocument::RocketMainMenuDocument()
+{
 }
 
 void RocketMainMenuDocument::LoadDialog()
