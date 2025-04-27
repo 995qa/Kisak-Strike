@@ -22,6 +22,25 @@ static MainMenuEventListener mainMenuEventListener;
 
 RocketMainMenuDocument::RocketMainMenuDocument()
 {
+    public:
+    void ProcessEvent(Rml::Event& mousedownevent) override
+    {
+        // Currently, only mousedown events.
+        Rml::Element *elem = mousedownevent.GetTargetElement();
+        if( !elem )
+            return;
+
+        Rml::String id = elem->GetId();
+        if( id == "pm_test" )
+        {
+            engine->ClientCmd_Unrestricted("map de_dust2");
+        }
+//        else if( id == "pm_choose" )
+//        {
+//            RocketTeamMenuDocument::ShowPanel( true );
+//            RocketPauseMenuDocument::ShowPanel( false );
+//        }
+    }
 }
 
 void RocketMainMenuDocument::LoadDialog()
